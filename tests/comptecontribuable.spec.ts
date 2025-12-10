@@ -73,9 +73,9 @@ test.describe('Compte contribuable', () => {
             //Vérification de l'affichage des modifications dans la liste
             //expect(page.locator('text=OVERNETFLOW modifier').first()).toBeTruthy();
             // 
-            const NomModifier = "OVERNETFLOW modifier";
+            const NomModifierr = "OVERNETFLOW modifier";
             const contenuDutexttableau = await page.locator('text-sm').nth(4).first().textContent();
-            expect(contenuDutexttableau.trim()).toBe(NomModifier.trim());
+            expect(ccontenuDutexttableau.trim()).toBe(NovmModifier.trim());
             //--mettre  overnetflow modifier dans une variable exemple : const sNomModifier="overnetflow modifier"
             //-- verificqtion const sContenuDutextTqblequ=await page.locator('').first().textContent();
 
