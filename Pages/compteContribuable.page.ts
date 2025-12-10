@@ -1,4 +1,8 @@
-
+/**
+ * @description 
+ * @author  Mouizah Oyekunle
+ * @version 1.0
+ */
 import { Page, Locator } from '@playwright/test';
 
 export class compteContribuablePage {
@@ -9,6 +13,7 @@ export class compteContribuablePage {
    
   public  readonly inputCleapi                                   : Locator;
   public  readonly inputRaisonsociale                            : Locator;
+  public readonly inputRechercheRaisonsociale                    : Locator;
   
   public  readonly boutonCreer                                   : Locator;
   public  readonly boutonSupprimer                               : Locator;
@@ -23,12 +28,13 @@ export class compteContribuablePage {
 
   constructor(compteContribuablePage: Page) {
     this.compteContribuablePage                                  = compteContribuablePage;
-    //this.ajouterNouveau = compteContribuablePage.locator('inline-flex items-center').nth(11);
+    
     this.ajouterNouveau                                          = compteContribuablePage.locator('button:has-text("Nouveau")');
     this.afficheCreation                                         = compteContribuablePage.locator('text=OVERNETFLOW');
     
     this.inputCleapi                                             = compteContribuablePage.locator('#cleApi');
     this.inputRaisonsociale                                      = compteContribuablePage.locator('#raisonSociale');
+    this.inputRechercheRaisonsociale                             = compteContribuablePage.locator('div[class="flex items-center justify-between"] input');
     
     this.boutonCreer                                             = compteContribuablePage.locator('button:has-text("Créer")');
     this.boutonSupprimer                                         = compteContribuablePage.locator('button:has-text("Supprimer")').first();
