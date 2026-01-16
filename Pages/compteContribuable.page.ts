@@ -20,11 +20,14 @@ export class compteContribuablePage {
   public  readonly boutonConfirmerSuppression                    : Locator;
   public  readonly boutonModifier                                : Locator;
   public  readonly boutonEnregistrerModification                 : Locator;
+  public readonly  boutonFermer                                  :Locator;                                        
   
   //popins
   public  readonly popinModification                             : Locator;
   public  readonly popinSuppression                              : Locator;
   public  readonly popinCreation                                 : Locator;
+  
+  public  readonly popupErrorSuppression                         :Locator;
 
   constructor(compteContribuablePage: Page) {
     this.compteContribuablePage                                  = compteContribuablePage;
@@ -41,10 +44,14 @@ export class compteContribuablePage {
     this.boutonConfirmerSuppression                              = compteContribuablePage.locator('div[data-slot="alert-dialog-footer"] button').nth(1);
     this.boutonModifier                                          = compteContribuablePage.locator('div[class="flex items-center justify-end gap-2"] button').nth(0);
     this.boutonEnregistrerModification                           = compteContribuablePage.locator('div[data-slot="dialog-footer"] button').nth(1);
+    this.boutonFermer                                            =compteContribuablePage.locator('div[data-slot="dialog-footer"] button').nth(0);
     
     this.popinCreation                                           = compteContribuablePage.locator('li[data-sonner-toast]');
     this.popinModification                                       = compteContribuablePage.locator('li[data-sonner-toast]');
     this.popinSuppression                                        = compteContribuablePage.locator('li[data-sonner-toast]');
+    
+    this.popupErrorSuppression                                   =compteContribuablePage.locator('div[data-slot="dialog-content"]').nth(0);
+    
     
 
     

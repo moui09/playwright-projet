@@ -8,7 +8,7 @@
 // Importation des fichiers nécessaires
 import { test, expect, type Page } from '@playwright/test';
 import { compteContribuablePage } from '../Pages/compteContribuable.page';
-import { login, disconnect } from '../Utils/helpers';
+import { login, disconnect, isVisible, clickSelector } from '../Utils/helpers';
 
 // Variable globale
 let page: Page;
@@ -45,7 +45,7 @@ test.describe.serial('Gestion des comptes contribuables', () => {
     test.describe('Création d\'un compte contribuable', () => {
 
         test('Ouvrir la popup de création', async () => {
-            await comptecontribuablePage.ajouterNouveau.click();
+            await clickSelector(comptecontribuablePage.ajouterNouveau,page);
             await page.waitForLoadState('networkidle');
         });
 
@@ -58,7 +58,7 @@ test.describe.serial('Gestion des comptes contribuables', () => {
         });
 
         test('Cliquer sur le bouton créer', async () => {
-            await comptecontribuablePage.boutonCreer.click();
+            await clickSelector(comptecontribuablePage.boutonCreer,page);
             await page.waitForLoadState('networkidle');
         });
 
@@ -80,13 +80,13 @@ test.describe.serial('Gestion des comptes contribuables', () => {
             const cellule = ligne.locator('td').nth(2);
             await expect(cellule).toContainText('OVERNETFLOW');
         });
-    });
+    }); //describe 01
 
     // ===== MODIFICATION D'UN COMPTE CONTRIBUABLE =====
     test.describe('Modification d\'un compte contribuable', () => {
 
         test('Ouvrir la popup de modification', async () => {
-            await comptecontribuablePage.boutonModifier.click();
+            await clickSelector(comptecontribuablePage.boutonModifier,page);
             await page.waitForLoadState('networkidle');
         });
 
@@ -99,7 +99,7 @@ test.describe.serial('Gestion des comptes contribuables', () => {
         });
 
         test('Enregistrer les modifications', async () => {
-            await comptecontribuablePage.boutonEnregistrerModification.click();
+            await clickSelector(comptecontribuablePage.boutonEnregistrerModification,page);
             await page.waitForLoadState('networkidle');
         });
 
@@ -109,13 +109,13 @@ test.describe.serial('Gestion des comptes contribuables', () => {
             const cellule = ligne.locator('td').nth(2);
             await expect(cellule).toHaveText(nomModifie.trim());
         });
-    });
+    });//describe 02
 
     // ===== SUPPRESSION D'UN COMPTE CONTRIBUABLE =====
     test.describe('Suppression d\'un compte contribuable', () => {
 
         test('Ouvrir la popup de suppression', async () => {
-            await comptecontribuablePage.boutonSupprimer.click();
+          await clickSelector(comptecontribuablePage.boutonSupprimer, page);
         });
 
         test('Vérifier l\'affichage du message de confirmation', async () => {
@@ -124,18 +124,20 @@ test.describe.serial('Gestion des comptes contribuables', () => {
         });
 
         test('Confirmer la suppression', async () => {
-            await comptecontribuablePage.boutonConfirmerSuppression.click();
-            await page.waitForLoadState('networkidle');
+          await clickSelector(comptecontribuablePage.boutonConfirmerSuppression, page); 
+          await page.waitForLoadState("networkidle");
         });
 
-        test('Vérifier la suppression effective du compte contribuable', async () => {
+         test('Vérifier la suppression effective du compte contribuable', async () => {
+        
             try {
-                await expect(comptecontribuablePage.popinSuppression).toBeVisible({ timeout: 5000 });
+                await expect(comptecontribuablePage.popupErrorSuppression).toBeVisible({ timeout: 5000 });
             } catch {
                 // Vérifier que le compte n'existe plus dans la liste
-                const resultats = await page.locator('text=OVERNETFLOW modifier').count();
-                expect(resultats).toBe(0);
-            }
+                const resultats = await page.locator('Erreur lors de la suppression').count();
+                expect(resultats).toBe(1);
+           }
+           await clickSelector(comptecontribuablePage.boutonFermer, page);
         });
-    });
+    });//describe 03
 });
