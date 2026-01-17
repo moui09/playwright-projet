@@ -35,6 +35,8 @@ export class gestionDesdossiersPage {
     
     public readonly popupActiverdossier                     : Locator;
     
+    public readonly popinActiverDossier: Locator;
+    
     
     
     constructor(gestionDesdossiersPage: Page) {
@@ -62,7 +64,8 @@ export class gestionDesdossiersPage {
         this.boutonFilter                                   = gestionDesdossiersPage.locator('button[data-slot="select-trigger"]').nth(0);
         this.boutonActiver                                  = gestionDesdossiersPage.locator('button[data-slot="alert-dialog-trigger"]').nth(0);
         this.popupActiverdossier = gestionDesdossiersPage.locator('div[role="alertdialog"]').nth(0);
-        this.boutonConfirmeractivation                      = gestionDesdossiersPage.locator('button[type="button"]').nth(15);
+        this.boutonConfirmeractivation                      = gestionDesdossiersPage.locator('div[data-slot="alert-dialog-footer"] button').nth(1);
 
+        this.popinActiverDossier = gestionDesdossiersPage.locator('section[aria-relevant="additions text"] li');
     }
     }

@@ -5,9 +5,10 @@
  * @version 1.0
  * @date 11-12-2025
  */
-import { test, type Page } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 import { gestionDesdossiersPage } from "../Pages/dossiers_gestiondesdossiers.page";
 import { login, disconnect, clickSelector } from "../Utils/helpers";
+import { getDate } from "../Utils/helpers";
 
 // Variable globale
 export let page                        : Page;
@@ -47,7 +48,7 @@ test.describe.serial("Gestion des dossiers", () => {
   /*test("Aller à ctte page", async () => {
     await page.goto("http://srv657839.hstgr.cloud:8090/folders");
   });*/
-
+/*
   //test.describe 01
   test.describe("Création d'un nouveau dossier", () => {
     test("Cliquer sur créer un dossier", async () => {
@@ -61,29 +62,15 @@ test.describe.serial("Gestion des dossiers", () => {
 
     //Remplissage des autres champs date de début et date de fin
 
-    test("Renseigner le champ date de début", async () => {
-      await page.evaluate(() => {
-        const el = document.querySelector("#dateDebut") as HTMLInputElement;
-        if (el !== null) {
-          el.value = "15/01/2026";
-        }
-        console.log(
-          " Date de début renseignée avec succès",
-          document.querySelector("#dateDebut")
-        );
-      });
-    });
+  test("Renseigner le champ date de début", async () => {
+    await page.fill("#dateDebut", "2026-01-17");
+    await page.waitForTimeout(500); // Petit délai pour la validation
+  });
 
-    test("Choisir la date de fin", async () => {
-      await page.evaluate(() => { 
-        const el = document.querySelector("#dateFin") as HTMLInputElement;
-        if (el !== null) {
-          el.value = "30/04/2026";
-        }
-
-        console.log(" Date de fin renseignée avec succès");
-      });
-    });
+  test("Choisir la date de fin", async () => {
+    await page.fill("#dateFin", "2026-04-30");
+    await page.waitForTimeout(500);
+  });
 
 
     test("Sélectionner le point de vente", async () => {
@@ -111,8 +98,8 @@ test.describe.serial("Gestion des dossiers", () => {
       await page.waitForTimeout(30000);
     });
     
-  });
-/*
+  });*/
+
   //test.describe 02
   test.describe("Rechercher un dossier par Nom,Description", () => {
     //
@@ -128,13 +115,18 @@ test.describe.serial("Gestion des dossiers", () => {
       await gestiondesdossiers.tdNomdossier.waitFor({state: "visible",timeout: 5000});
     });
   }); //fin du 02 describe
-
+/*
   //test.describe 03
   test.describe("Filtrer un dossier par statut", async () => {
-    test("", async () => {
+
+    test("Cliquer sur le bouton Tous les status", async () => {
       await gestiondesdossiers.boutonFilter.selectOption({ label: "Actif" });
     });
-  }); //fin du 03 describe
+
+    test("Sélectionner un statut", async () => {
+      await gestiondesdossiers.boutonFilter.selectOption({ label: "Actif" });
+    });
+  }); *///fin du 03 describe
 
   //test.describe 04
   test.describe("Activer un dossier  ", async () => {
@@ -150,12 +142,12 @@ test.describe.serial("Gestion des dossiers", () => {
       await clickSelector(gestiondesdossiers.boutonConfirmeractivation, page);
     });
 
-    /*test("Affichage de l'input", async () => {
-
-     });*/
-//}); //fin du 04 describe
+    test("Vérification de la pop-up", async () => {
+      await expect(gestiondesdossiers.popinActiverDossier).toBeVisible();
+     });
+}); //fin du 04 describe
   
-/*
+
   //test.describe 05 à reprendre avec les bons sélecteurs
   test.describe("Désactiver un dossier  ", async () => {
 
@@ -177,7 +169,7 @@ test.describe.serial("Gestion des dossiers", () => {
     /*test("Affichage de l'input", async () => {
 
      });*/
-  //});
+  });
   //fin du 05 describe
 
   //test.describe 06
@@ -186,8 +178,7 @@ test.describe.serial("Gestion des dossiers", () => {
     test("", async () => {});
   }); //fin du 06describe
 
-  /*test("Déconnexion", async () => {
+  test("Déconnexion", async () => {
     await disconnect(page);
   }); //fin du test déconnexion
-  */
 });//fin du grand describe

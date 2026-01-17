@@ -120,3 +120,10 @@ export async function isVisible(
     return false;
   }
 }
+
+////////////////////////////////////////////
+export async function getDate(daysToAdd = 0): Promise<string> {
+  const date = new Date();
+  date.setDate(date.getDate() + daysToAdd);
+  return date.toLocaleDateString("en-CA"); // YYYY-MM-DD
+}
